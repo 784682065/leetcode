@@ -1,4 +1,4 @@
-package com.example.leetcode.specialtraining;
+package com.example.leetcode.training;
 
 import java.util.ArrayList;
 import java.util.List;

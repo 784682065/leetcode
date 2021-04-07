@@ -1,8 +1,5 @@
-package com.example.leetcode.specialtraining;
+package com.example.leetcode.training;
 
-import com.sun.org.apache.bcel.internal.generic.SWAP;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**

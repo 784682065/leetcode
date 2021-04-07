@@ -15,8 +15,8 @@ public class Solution605 {
      * 输出：true
      *
      * @param flowerbed 花坛
-     * @param n         需要种植的数量
-     * @return
+     * @param n 需要种植的数量
+     * @return 是否能种下
      */
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
 

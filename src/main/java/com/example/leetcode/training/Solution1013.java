@@ -1,4 +1,4 @@
-package com.example.leetcode.specialtraining;
+package com.example.leetcode.training;
 
 /**
  * @Author: huzp
