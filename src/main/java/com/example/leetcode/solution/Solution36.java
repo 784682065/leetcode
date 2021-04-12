@@ -23,7 +23,7 @@ public class Solution36 {
         int[][] rawArr = new int[9][9];
         int[][] columnArr = new int[9][9];
         int[][] blockArr = new int[9][9];
-        HashMap
+
 
         char valChar;
         int val;
