@@ -1,5 +1,7 @@
 package com.example.leetcode.solution;
 
+import javax.swing.tree.TreeNode;
+
 /**
  * describe:
  *
@@ -18,6 +20,16 @@ public class Solution543 {
         return ans;
     }
 
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
     private int treeNodelength(TreeNode node) {
 
         if (node == null) return 0; // 访问到空节点了，返回0
@@ -30,12 +42,4 @@ public class Solution543 {
 
 }
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
 
-    TreeNode(int x) {
-        val = x;
-    }
-}
