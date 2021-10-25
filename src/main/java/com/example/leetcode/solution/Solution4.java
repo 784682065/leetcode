@@ -46,13 +46,12 @@ public class Solution4 {
                 continue;
             }
             if (k == num2Len) {
-                // 单走k
+                // 单走j
                 beforeVal = minVal;
                 minVal = nums1[j];
                 j++;
                 continue;
             }
-
 
             if (k < num2Len && nums1[j] >= nums2[k]) {
                 beforeVal = minVal;
