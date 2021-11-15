@@ -29,7 +29,7 @@ public class Solution41 {
             if (Math.abs(nums[i]) >=1 && Math.abs(nums[i]) <= len){
                 nums[num-1] =  -Math.abs(nums[num-1]) ;
             }
-        }ClassLoader
+        }
 
         // 找到第一个不是负数的, 取得其下标为答案
         for (int i = 0; i < nums.length; i++) {
