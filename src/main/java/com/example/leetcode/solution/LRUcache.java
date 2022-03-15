@@ -9,38 +9,6 @@ import java.util.Map;
  * @Date: Created in  8:46 2020/5/1
  * @param:
  */
-//class LRUCache {
-//
-//    private int capacity;
-//    private HashMap<Integer, Integer> hashMap;
-//    private HashMap<Integer, Integer> usageCount;
-//
-//    public LRUCache(int capacity) {
-//        this.capacity = capacity;
-//    }
-//
-//    public int get(int key) {
-//        Integer seq = usageCount.get(key);
-//        if (seq > 0) {
-//            return hashMap.get(key);
-//        } else {
-//            return -1;
-//        }
-//    }
-//
-//    public void put(int key, int value) {
-//
-//        if (!usageCount.isEmpty()) {
-//            for (Map.Entry<Integer, Integer> entry : usageCount.entrySet()) {
-//                entry.setValue(entry.getValue() - 1);
-//            }
-//        }
-//        hashMap.put(key, value);
-//        usageCount.put(key, capacity);
-//    }
-//
-//
-//}
 
 import java.util.Hashtable;
 
@@ -48,7 +16,7 @@ import java.util.Hashtable;
  * 双向队列加hash map
  * 每次加入结点放在 双向队列的头(头插法), 和放在 hashmap的value中
  * 记录size,多于容量直接删除最后一个尾节点
- *
+ * <p>
  * 用双向队列的尾结点决定淘汰map中的哪个node
  */
 class LRUCache {
@@ -85,6 +53,7 @@ class LRUCache {
 
     /**
      * 移动新节点到头结点
+     *
      * @param node
      */
     private void moveToHead(DLinkedNode node) {
@@ -104,7 +73,7 @@ class LRUCache {
         return res;
     }
 
-    private Hashtable<Integer, DLinkedNode> cache = new Hashtable<>();
+    private Map<Integer, DLinkedNode> cache = new HashMap<>();
     private int size;
     private int capacity;
     private DLinkedNode head, tail;
@@ -158,6 +127,18 @@ class LRUCache {
             node.value = value;
             moveToHead(node);
         }
+    }
+
+    public static void main(String[] args) {
+
+        LRUCache lRUCache = new LRUCache(2);
+        lRUCache.put(2, 1); // 缓存是 {1=1}
+        lRUCache.put(2, 2); // 缓存是 {1=1, 2=2}
+        lRUCache.get(2);    // 返回 1
+        lRUCache.put(1, 1); // 该操作会使得关键字 2 作废，缓存是 {1=1, 3=3}
+//        lRUCache.get(2);    // 返回 -1 (未找到)
+        lRUCache.put(4, 1); // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}
+        lRUCache.get(2);    // 返回 -1 (未找到)
     }
 }
 
