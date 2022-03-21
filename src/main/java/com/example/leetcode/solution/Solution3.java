@@ -68,10 +68,9 @@ public class Solution3 {
 
 
     public static void main(String[] args) {
-        Solution3 solution3 = new Solution3();
-        String s = "abcabcbb";
-        int i = solution3.lengthOfLongestSubstring1(s);
-        System.out.println(i);
+        int a =1;
+        System.out.println(a++);
+        System.out.println(++a);
 
     }
 }
