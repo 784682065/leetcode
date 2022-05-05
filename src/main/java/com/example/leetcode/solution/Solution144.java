@@ -43,7 +43,8 @@ public class Solution144 {
 
         while (!stack.isEmpty() || node !=null){
             while (node !=null){
-                stack.add(node);
+//                LinkedList<>() push 是放到队列头, 而add 是加入队列尾
+                stack.push(node);
                 res.add(node.val);
                 node = node.left;
             }
@@ -97,7 +98,7 @@ public class Solution144 {
         TreeNode root = new TreeNode(1,treeNode2,treeNode3);
 
         Solution144 solution144  = new Solution144();
-        solution144.preorderTraversalM(root);
+        solution144.preorderTraversal(root);
 
 
     }
