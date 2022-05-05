@@ -35,6 +35,7 @@ public class Solution151 {
 
         StringBuffer res = new StringBuffer();
         while (!stack.isEmpty()){
+            // Stack pop 弹出的是栈尾
             res.append(stack.pop());
             res.append(' ');
         }

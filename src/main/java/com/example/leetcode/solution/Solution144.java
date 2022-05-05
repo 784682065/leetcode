@@ -48,6 +48,7 @@ public class Solution144 {
                 res.add(node.val);
                 node = node.left;
             }
+            // LinkedList pop 弹出来的是队列头
             node = stack.pop();
             node = node.right;
         }
