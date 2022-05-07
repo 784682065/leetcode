@@ -1,6 +1,7 @@
 package com.example.leetcode.solution;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * describe:
@@ -10,57 +11,53 @@ import java.util.HashMap;
  */
 public class Solution105 {
 
-    // start from first preorder element
-    int pre_idx = 0;
-    int[] preorder;
-    int[] inorder;
-    HashMap<Integer, Integer> idx_map = new HashMap<>();
-
+    private Map<Integer, Integer> indexMap;
 
     /**
-     * 大概算法就是三部
-     * <p>
-     * 1. 根据前序当前的根, 拿出 中序数组该值所在的索引值
-     * <p>
-     * 2. 根植 创建node
-     * <p>
-     * 3. root.left = 递归调用  F(最开始的左边值,到索引值)
-     *    root.right =  递归调用  F(索引值+1,右边边界值)
+     * 主要步骤
+     * 1. 通过前序数组拿出第一个 作为根节点
+     * 2. 左子树是 中序遍历数组中 该根节点的左边元素; 前序遍历分出边界是: [自己位置加1 , 中序遍历该根节点左边元素个数加上自己初始位置]
+     * 3. 右子树是 中序遍历数组中,该根节点右边元素; 前序遍历分出边界是:[中序遍历该根节点左边元素个数加上自己初始位置, 到前序最右边]
+     * 4.
+     * @param preorder
+     * @param inorder
+     * @param preorder_left
+     * @param preorder_right
+     * @param inorder_left
+     * @param inorder_right
+     * @return
      */
-    public TreeNode helper(int in_left, int in_right) {
-        // if there is no elements to construct subtrees
-        if (in_left == in_right)
+    public TreeNode myBuildTree(int[] preorder, int[] inorder, int preorder_left, int preorder_right, int inorder_left, int inorder_right) {
+        if (preorder_left > preorder_right) {
             return null;
+        }
 
-        // pick up pre_idx element as a root
-        int root_val = preorder[pre_idx];  //开始拿出最前面的节点值
-        TreeNode root = new TreeNode(root_val);
+        // 前序遍历中的第一个节点就是根节点
+        int preorder_root = preorder_left;
+        // 在中序遍历中定位根节点
+        int inorder_root = indexMap.get(preorder[preorder_root]);
 
-
-
-
-        // root splits inorder list
-        // into left and right subtrees
-        int index = idx_map.get(root_val); //拿出中序遍历数组的节点值的索引
-
-        // recursion
-        pre_idx++;   //每次前序遍历数组取完一个值 后根节点往后走
-        // build left subtree
-        root.left = helper(in_left, index); //处理左边的, 将返回的值添加至root.left
-        // build right subtree
-        root.right = helper(index + 1, in_right); //处理右边的
+        // 先把根节点建立出来
+        TreeNode root = new TreeNode(preorder[preorder_root]);
+        // 得到左子树中的节点数目
+        int size_left_subtree = inorder_root - inorder_left;
+        // 递归地构造左子树，并连接到根节点
+        // 先序遍历中「从 左边界+1 开始的 size_left_subtree」个元素就对应了中序遍历中「从 左边界 开始到 根节点定位-1」的元素 , inorder_root - 1 为中序遍历该节点左子树的最右边界
+        root.left = myBuildTree(preorder, inorder, preorder_left + 1, preorder_left + size_left_subtree, inorder_left, inorder_root - 1);
+        // 递归地构造右子树，并连接到根节点
+        // 先序遍历中「从 左边界+1+左子树节点数目 开始到 右边界」的元素就对应了中序遍历中「从 根节点定位+1 到 右边界」的元素
+        root.right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + 1, preorder_right, inorder_root + 1, inorder_right);
         return root;
     }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        this.preorder = preorder;
-        this.inorder = inorder;
-
-        // build a hashmap value -> its index
-        int idx = 0;
-        for (Integer val : inorder)
-            idx_map.put(val, idx++);  //value 和数组索引位置
-        return helper(0, inorder.length);
+        int n = preorder.length;
+        // 构造哈希映射，帮助我们快速定位根节点
+        indexMap = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            indexMap.put(inorder[i], i);
+        }
+        return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
     }
 
 }
