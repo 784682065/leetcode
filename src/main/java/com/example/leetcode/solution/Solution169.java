@@ -53,6 +53,29 @@ public class Solution169 {
         return count;
     }
 
+
+    /**
+     * 投票证明法
+     * 如果候选人不是maj 则 maj,会和其他非候选人一起反对 会反对候选人,所以候选人一定会下台(maj==0时发生换届选举)
+     * 如果候选人是maj , 则maj 会支持自己，其他候选人会反对，同样因为maj 票数超过一半，所以maj 一定会成功当选
+     * @param nums
+     * @return
+     */
+    public int majorityElement_1(int[] nums) {
+        int count = 0;
+        Integer candidate = null;
+
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
+            }
+            count += (num == candidate) ? 1 : -1;
+        }
+
+        return candidate;
+    }
+
+
 //    public int majorityElement(int[] nums) {
 //
 //        Arrays.sort(nums);
