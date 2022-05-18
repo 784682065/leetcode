@@ -40,8 +40,6 @@ public class Solution39 {
     private void dfs(int[] candidates, int target,
                      List<Integer> tmp,  int sum, int start ) {
         if (sum == target) {
-            HashMap hashMap = new HashMap(
-            );
             res.add(new ArrayList<>(tmp));
             return;
         }
