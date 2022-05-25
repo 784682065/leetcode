@@ -44,6 +44,12 @@ public class Solution3 {
         return Math.max(max,end- start);
     }
 
+    /**
+     * 使用hashSet记录的要点,就是要移动的时候记得remove左边界的值 ,
+     * 不用map主要是因为 这里只可能会记录一次某个值,出现重复的时候
+     * @param s
+     * @return
+     */
     public int lengthOfLongestSubstring1(String s) {
         // 哈希集合，记录每个字符是否出现过
         Set<Character> occ = new HashSet<Character>();

@@ -106,7 +106,6 @@ public class Solution215 {
         if (p == k) {
             return nums[k];
         }
-
         int res;
         //说明需要找得值位于前方
         if (p > k) {
