@@ -63,9 +63,9 @@ public class Solution215 {
 
     public static void main(String[] args) {
 
-        int[] nums = {3, 2, 1, 5, 6, 4};
+        int[] nums = {5,6,7,8};
         Solution215 solution215 = new Solution215();
-        solution215.findKthLargestHeap(nums, 3);
+        solution215.buildMaxHeap(nums, nums.length);
         System.out.println(Arrays.toString(nums));
 
     }
