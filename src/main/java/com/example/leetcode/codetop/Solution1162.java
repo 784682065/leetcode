@@ -27,7 +27,7 @@ public class Solution1162 {
                 {-1, 0}, {1, 0}, {0, -1}, {0, 1},
         };
 
-        // 多远层析遍历
+        // 多源层析遍历
         int distance = -1; // 记录当前遍历的层数（距离）
         while (!queue.isEmpty()) {
             distance++;

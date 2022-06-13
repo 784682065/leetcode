@@ -26,6 +26,10 @@ public class Solution1 {
         int[] nums = {2, 7, 11, 15};
         Solution1 solution1 = new Solution1();
         solution1.twoSum(nums, 9);
+        // 5.3 * 10^12
+//        double d = 5.3e12;
+//        System.out.println(d);
+
     }
 
 }
