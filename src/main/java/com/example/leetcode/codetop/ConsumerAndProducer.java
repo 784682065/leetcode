@@ -18,11 +18,8 @@ public class ConsumerAndProducer {
 
         @Override
         public void run() {
-//            Semaphore semaphore = new Semaphore(QueueSize);
             while (true) {
                 try {
-
-//                    semaphore.acquire();
                     queue.take();
                     System.out.println("Consumer one" + queue.size());
 
@@ -58,8 +55,6 @@ public class ConsumerAndProducer {
         executorService0 = Executors.newCachedThreadPool();
         executorService1 = Executors.newCachedThreadPool();
         queue = new ArrayBlockingQueue<>(QueueSize);
-//        commonQueue = new Lin<>();
-
         executorService0.submit(new Consumer());
         executorService1.submit(new Producer());
 
