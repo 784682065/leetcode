@@ -25,22 +25,24 @@ public class IPReader {
     static String fileLoc = "/Users/huzepeng/IdeaProjects/leetcode/src/main/resources/ip/bigdata_ip.txt";
 
     public static void findIp() throws IOException, ClassNotFoundException, InterruptedException {
-//        long start = System.currentTimeMillis();
-//        hashToSmallFiles();
-//        long end1 = System.currentTimeMillis();
-//        System.out.println("将大文件映射成小文件，用时：" + (end1 - start) + "毫秒");
+        long start = System.currentTimeMillis();
+        //todo 这里用多线程写
+        hashToSmallFiles();
+        long end1 = System.currentTimeMillis();
+        System.out.println("将大文件映射成小文件，用时：" + (end1 - start) + "毫秒");
 
         System.out.println("映射到小文件完成，开始统计每个小文件中出现频率最高的ip");
         long start1 = System.currentTimeMillis();
+        // 这里用优先级队列直接排序
         List<IP> list = countEverySmallFile();
         long end2 = System.currentTimeMillis();
         System.out.println("统计所有文件共用时：" + (end2 - start1) + " 毫秒");
 
-//        System.out.println("统计完成，开始计算所有ip中出现频率最高的ip");
-//        IP ip = calculateResult(list);
-//        System.out.println("访问次数最多的ip是：" + ip.getIp() + ":" + ip.getCount());
-//        long end = System.currentTimeMillis();
-//        System.out.println("公用时：" + (end - start) + "毫秒");
+        System.out.println("统计完成，开始计算所有ip中出现频率最高的ip");
+        IP ip = calculateResult(list);
+        System.out.println("访问次数最多的ip是：" + ip.getIp() + ":" + ip.getCount());
+        long end = System.currentTimeMillis();
+        System.out.println("公用时：" + (end - start) + "毫秒");
     }
 
     /**
@@ -70,21 +72,23 @@ public class IPReader {
     private static List<IP> countEverySmallFile() throws FileNotFoundException, IOException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(8+1);//创建一个固定的线程池
         List<IP> list = Collections.synchronizedList(new LinkedList<>());
-//        CountDownLatch latch = new CountDownLatch(1024);
+        CountDownLatch latch = new CountDownLatch(1024);
 
         for (int i = 0; i < 1024; i++) {
             File file = new File(fileLoc + i + ".txt");
-//            int finalI = i;
-            taskcountEverySmallFile(list, file, i);
-//            executorService.execute(() -> {
-//                taskcountEverySmallFile(list, file, finalI);
-//                latch.countDown();
-//            });
+            int finalI = i;
+            executorService.execute(() -> {
+                try {
+                    taskcountEverySmallFile(list, file, finalI);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    latch.countDown();
+                }
+            });
 
         }
-//        executorService.
-//        System.out.println("多线程");
-//        latch.await();
+        latch.await();
         executorService.shutdown();
         return list;
     }
