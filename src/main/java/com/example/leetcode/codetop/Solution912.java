@@ -45,10 +45,19 @@ public class Solution912 {
     }
 
 
+    /**
+     * 建堆过程小顶堆为例:
+     * 1. 初建堆, 从最后一个父节点开始,保证子节点均小于父节点,
+     * 若是有大的则上移动,再倒数第二个父节点同样操作,移动导致下面子树改变,需要递归建堆
+     *
+     * 2. 重建堆, 经过第一步,最大的值已经在顶端,
+     * 把顶端值和最后一个值做交换,开始从顶部做排序,递归所有子树把第二大的值换上来,在接着第二大的值和倒数第二个位置交换.
+     * @param nums
+     */
     public void heapSort(int[] nums) {
         int len = nums.length;
-        buildMaxHeap(nums, len);
-        for (int i = len - 1; i >= 1; --i) {
+        buildMaxHeap(nums, len); //初建堆 ,构建小顶堆,初建要把大的放到最顶上
+        for (int i = len - 1; i >= 1; --i) { //重建堆, 从最末尾开始把每个值换上来重新建堆
             swap(nums, i, 0);
             // 记住len 变小, 这样才不会把先前最大的值在换上来.
             len -= 1;
@@ -86,10 +95,11 @@ public class Solution912 {
     }
 
     public static void main(String[] args) {
-        int[] nums = {4, 6, 8, 5, 9};
+        int[] nums = {10,12,11,13,14};
         Solution912 solution912 = new Solution912();
-//        int[] ints = solution912.heapSort(nums);
-//        System.out.println(Arrays.toString(ints));
+        solution912.heapSort(nums);
+
+        System.out.println(Arrays.toString(nums));
     }
 
 }
