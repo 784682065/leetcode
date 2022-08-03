@@ -22,20 +22,15 @@ public class ConsumerAndProducer {
                 try {
                     queue.take();
                     System.out.println("Consumer one" + queue.size());
-
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-//                finally {
-//                    semaphore.release();
-//                }
             }
 
         }
     }
 
     class Producer implements Runnable {
-
         @Override
         public void run() {
             while (true) {
