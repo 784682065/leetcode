@@ -6,9 +6,9 @@ import java.util.concurrent.*;
 
 public class ConsumerAndProducer {
 
-    int QueueSize = 4;
+    int QueueSize = 10;
     BlockingQueue<Integer> queue;
-    Queue<Integer> commonQueue;
+
 
     ExecutorService executorService0;
     ExecutorService executorService1;
@@ -18,12 +18,18 @@ public class ConsumerAndProducer {
 
         @Override
         public void run() {
+//            final Semaphore semaphore = new Semaphore(QueueSize);
             while (true) {
                 try {
+//                    semaphore.acquire();
                     queue.take();
+//                    Thread.sleep(10);
                     System.out.println("Consumer one" + queue.size());
+                    System.out.println("Consumer one"+Thread.currentThread().getName());
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
+                } finally {
+//                    semaphore.release();
                 }
             }
 
@@ -33,10 +39,12 @@ public class ConsumerAndProducer {
     class Producer implements Runnable {
         @Override
         public void run() {
+
             while (true) {
                 try {
                     if (queue.offer(1, 10, TimeUnit.SECONDS)) {
                         System.out.println("Produce one" + queue.size());
+                        System.out.println("Produce one"+ Thread.currentThread().getName());
                     }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -50,13 +58,18 @@ public class ConsumerAndProducer {
         executorService0 = Executors.newCachedThreadPool();
         executorService1 = Executors.newCachedThreadPool();
         queue = new ArrayBlockingQueue<>(QueueSize);
-        executorService0.submit(new Consumer());
-        executorService1.submit(new Producer());
+        executorService1.execute(new Producer());
+        for (int i = 0; i < 10; i++) {
+            executorService0.execute(new Consumer());
+        }
+
 
     }
 
     public static void main(String[] args) {
         ConsumerAndProducer consumerAndProducer = new ConsumerAndProducer();
         consumerAndProducer.DoCp();
+
+//
     }
 }
