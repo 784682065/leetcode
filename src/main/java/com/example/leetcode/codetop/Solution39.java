@@ -34,7 +34,6 @@ public class Solution39 {
             if (target - candidates[i] < 0) {
                 break;
             }
-
             path.addLast(candidates[i]);
 
             // 用i的话, 如果当前是第二个数,下一层循环也只能用到第二个数.
@@ -48,7 +47,7 @@ public class Solution39 {
     public static void main(String[] args) {
         Solution39 solution39 = new Solution39();
         int[] candidates = {2, 3, 6, 7};
-        int target = 7;
+        int target = 8;
         List<List<Integer>> lists = solution39.combinationSum(candidates, target);
         System.out.println(lists);
     }

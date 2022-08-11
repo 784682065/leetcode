@@ -5,6 +5,12 @@ import java.util.List;
 
 public class Solution46 {
 
+    /**
+     * 使用used数组,是用来找没有顺序的排列组合.
+     * 使用begin 是寻找有顺序区别的,比如 7,1 和1,7 是认为一样的
+     * @param nums
+     * @return
+     */
     public List<List<Integer>> permute(int[] nums) {
         int len = nums.length;
         // 使用一个动态数组保存所有可能的全排列
