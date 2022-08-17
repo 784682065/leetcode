@@ -31,9 +31,7 @@ public int maxWidthRamp(int[] A) {
     }
 
     for (int i=n-1;i>=0;i--) {
-
         while (!stack.isEmpty() && A[stack.peek()] <= A[i]) {
-
             int pos = stack.pop();
             maxWidth = Math.max(maxWidth, i - pos);
         }

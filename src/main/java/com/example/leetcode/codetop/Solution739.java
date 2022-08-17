@@ -18,6 +18,7 @@ public class Solution739 {
                 Integer index = stack.pop();
                 res[index] = i - index;
             }
+            // 入栈 和 出站while 可能分开 比如 Solution962
             stack.push(i);
         }
         return res;
