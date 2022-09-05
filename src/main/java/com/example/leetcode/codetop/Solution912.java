@@ -1,6 +1,7 @@
 package com.example.leetcode.codetop;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * @author: hzp
@@ -27,6 +28,9 @@ public class Solution912 {
     }
 
     private int partition(int[] nums, int left, int right) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(right - left + 1) + left;
+        swap(nums, right, randomIndex);
         int ptr = left, x = nums[right];
         for (int i = left; i < right; i++) {
             if (x >= nums[i]) {
