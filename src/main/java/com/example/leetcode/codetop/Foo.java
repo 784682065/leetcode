@@ -14,6 +14,7 @@ class Foo {
     private volatile  Integer first = 0;
 
 
+
     public Foo() {}
 
     public void first(Runnable printFirst) throws InterruptedException {
