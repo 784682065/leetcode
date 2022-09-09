@@ -3,6 +3,10 @@ package com.example.leetcode.codetop;
 import com.sun.corba.se.impl.naming.namingutil.INSURLBase;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 public class Solution297 {
@@ -51,11 +55,17 @@ public class Solution297 {
         return root;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         Solution297 solution297 = new Solution297();
         TreeNode deserialize = solution297.deserialize("1,2,3,None,None,4,5");
         System.out.println();
+
+
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        Future<Integer> submit = executorService.submit(() -> 1);
+        submit.get();
+
 
     }
 }
