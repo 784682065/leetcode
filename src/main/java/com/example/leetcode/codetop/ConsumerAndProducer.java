@@ -25,7 +25,7 @@ public class ConsumerAndProducer {
                     queue.take();
 //                    Thread.sleep(10);
                     System.out.println("Consumer one" + queue.size());
-                    System.out.println("Consumer one"+Thread.currentThread().getName());
+                    System.out.println("Consumer one" + Thread.currentThread().getName());
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 } finally {
@@ -44,7 +44,7 @@ public class ConsumerAndProducer {
                 try {
                     if (queue.offer(1, 10, TimeUnit.SECONDS)) {
                         System.out.println("Produce one" + queue.size());
-                        System.out.println("Produce one"+ Thread.currentThread().getName());
+                        System.out.println("Produce one" + Thread.currentThread().getName());
                     }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -62,13 +62,40 @@ public class ConsumerAndProducer {
         for (int i = 0; i < 10; i++) {
             executorService0.execute(new Consumer());
         }
-
-
     }
 
+    private Executor slowQueueExc;
+    public Runnable taskSlowEvent = new Runnable() {
+        @Override
+        public void run() {
+
+            final Semaphore semaphore = new Semaphore(5);
+            while (true) {
+                try {
+                    final String msg = "hah";
+                    semaphore.acquire();
+                    slowQueueExc.execute(() -> {
+                        try {
+                            System.out.println(msg + Thread.currentThread());
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                            System.out.println("handleNBIoT InterruptedException :{}");
+                        } finally {
+                            semaphore.release();
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    System.out.println("handleNBIoT InterruptedException :{}");
+                }
+            }
+        }
+    };
+
     public static void main(String[] args) {
+
         ConsumerAndProducer consumerAndProducer = new ConsumerAndProducer();
-        consumerAndProducer.DoCp();
+        consumerAndProducer.slowQueueExc = Executors.newFixedThreadPool(10);
+        consumerAndProducer.slowQueueExc.execute(consumerAndProducer.taskSlowEvent);
 
 //
     }

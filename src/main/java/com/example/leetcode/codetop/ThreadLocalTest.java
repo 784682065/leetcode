@@ -6,8 +6,8 @@ import java.util.Random;
 public class ThreadLocalTest implements Runnable{
     // SimpleDateFormat 不是线程安全的，所以每个线程都要有自己独立的副本
     private static final ThreadLocal<SimpleDateFormat> formatter = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyyMMdd HHmm"));
-    private static  ThreadLocal<String> threadId = ThreadLocal.withInitial(() -> "aaaa");
-    private static  ThreadLocal<String> threadId1 = ThreadLocal.withInitial(() -> "aaaa");
+    private static final ThreadLocal<String> threadId = ThreadLocal.withInitial(() -> "aaaa");
+    private static final ThreadLocal<String> threadId1 = ThreadLocal.withInitial(() -> "aaaa");
 
     public static void main(String[] args) throws InterruptedException {
         ThreadLocalTest obj = new ThreadLocalTest();
