@@ -15,7 +15,6 @@ public class ConsumerAndProducer {
 
 
     class Consumer implements Runnable {
-
         @Override
         public void run() {
 //            final Semaphore semaphore = new Semaphore(QueueSize);

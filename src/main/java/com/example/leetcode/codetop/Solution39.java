@@ -31,6 +31,7 @@ public class Solution39 {
         }
         // 设置begin去重
         for (int i = begin; i < candidates.length; i++) {
+            // 小于0的部分剪掉
             if (target - candidates[i] < 0) {
                 break;
             }
