@@ -34,7 +34,7 @@ public class Solution297 {
         if (root == null) {
             str += "None,";
         } else {
-            str += str.valueOf(root.val) + ",";
+            str += root.val + ",";
             str = rserialize(root.left, str);
             str = rserialize(root.right, str);
         }
