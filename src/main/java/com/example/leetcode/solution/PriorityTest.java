@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author: hzp
@@ -27,6 +28,8 @@ public class PriorityTest {
     static Queue<Integer> findTopN(int[] data, int k){
         if(data==null || data.length==0)
             return null;
+
+
 
         Queue<Integer> priorityQueue=new PriorityQueue<>(k);
         priorityQueue.add(data[0]);

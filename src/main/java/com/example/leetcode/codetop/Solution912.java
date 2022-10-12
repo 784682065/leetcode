@@ -29,6 +29,7 @@ public class Solution912 {
 
     private int partition(int[] nums, int left, int right) {
         Random random = new Random();
+//        该方法的作用是生成一个随机的int值，该值介于[0,n)的区间，也就是0到n之间的随机int值，包含0而不包含n。
         int randomIndex = random.nextInt(right - left + 1) + left;
         swap(nums, right, randomIndex);
         int ptr = left, x = nums[right];
